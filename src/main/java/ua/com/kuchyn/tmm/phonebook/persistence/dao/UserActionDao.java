@@ -44,26 +44,36 @@ public class UserActionDao implements UserAction {
 
     @Transactional
     public void updateUser(String id, String login, String phone) {
-	// TODO Auto-generated method stub
-
+	IUser user = getUsersById(id);
+	user.setLogin(login);
+	user.setPhone(phone);
+	sessionFactory.getCurrentSession().merge(user);
     }
 
     @Transactional
     public void deleteUser(String id) {
-	// TODO Auto-generated method stub
-
+	sessionFactory.getCurrentSession()
+		.createQuery("delete from UserEntity where id = ?")
+		.setParameter(0, id).executeUpdate();
     }
 
+    @SuppressWarnings("unchecked")
     @Transactional
     public List<IUser> getAllUsers() {
-	// TODO Auto-generated method stub
-	return null;
+	return sessionFactory.getCurrentSession()
+		.createCriteria(UserEntity.class).list();
     }
 
     @Transactional
     public IUser getUsersByLogin(String login) {
-	// TODO Auto-generated method stub
-	return null;
+	IUser result = (IUser) sessionFactory.getCurrentSession()
+		.createCriteria(UserEntity.class)
+		.add(Restrictions.eq("login", login)).uniqueResult();
+	if (result == null) {
+	    throw new EntityNotFoundException("No user was found by login "
+		    + login);
+	}
+	return result;
     }
 
     @Transactional
@@ -77,10 +87,15 @@ public class UserActionDao implements UserAction {
 	return result;
     }
 
+    @SuppressWarnings("unchecked")
     @Transactional
     public List<IUser> findByKey(String key) {
-	// TODO Auto-generated method stub
-	return null;
+	return sessionFactory
+		.getCurrentSession()
+		.createCriteria(UserEntity.class)
+		.add(Restrictions.disjunction()
+			.add(Restrictions.like("login", "%" + key + "%"))
+			.add(Restrictions.like("phone", "%" + key + "%")))
+		.list();
     }
-
 }
