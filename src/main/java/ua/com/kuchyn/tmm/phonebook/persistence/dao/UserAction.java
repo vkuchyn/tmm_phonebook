@@ -6,7 +6,7 @@ import ua.com.kuchyn.tmm.phonebook.persistence.model.IUser;
 
 public interface UserAction {
 
-    public long createUser(String login, String phone);
+    public String createUser(String login, String phone);
 
     public void updateUser(String id, String login, String phone);
 

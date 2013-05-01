@@ -1,19 +1,14 @@
 package ua.com.kuchyn.tmm.phonebook.persistence.model;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "user")
-@SequenceGenerator(name = "sequence", sequenceName = "user_id", allocationSize = 1)
 public class UserEntity implements IUser {
 
     @Id
-    @GeneratedValue(generator = "sequence", strategy = GenerationType.SEQUENCE)
     private String id;
 
     private String login;
