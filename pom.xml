@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>ua.com.kuchyn</groupId>
-  <artifactId>tmm.phonebook</artifactId>
+  <artifactId>tmm-phonebook</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
 
@@ -12,6 +12,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <gwtVersion>2.5.1</gwtVersion>
+    <springVersion>3.2.0.RELEASE</springVersion>
   </properties>
 
  <dependencies>
@@ -19,27 +21,27 @@
    	<dependency>
   		<groupId>org.springframework</groupId>
   		<artifactId>spring-core</artifactId>
-  		<version>3.2.0.RELEASE</version>
+  		<version>${springVersion}</version>
   	</dependency>
 	<dependency>
 		<groupId>org.springframework</groupId>
 		<artifactId>spring-context</artifactId>
-		<version>3.2.0.RELEASE</version>
+		<version>${springVersion}</version>
 	</dependency>
 	<dependency>
 		<groupId>org.springframework</groupId>
 		<artifactId>spring-orm</artifactId>
-		<version>3.2.0.RELEASE</version>
+		<version>${springVersion}</version>
 	</dependency>  	
 	<dependency>
 		<groupId>org.springframework</groupId>
 		<artifactId>spring-test</artifactId>
-		<version>3.2.0.RELEASE</version>
+		<version>${springVersion}</version>
 	</dependency>	
 	<dependency>
 		<groupId>org.springframework</groupId>
 		<artifactId>spring-tx</artifactId>
-		<version>3.2.0.RELEASE</version>
+		<version>${springVersion}</version>
 	</dependency>	
 	 <dependency>
 		  <groupId>log4j</groupId> 
@@ -69,12 +71,18 @@
 	 <dependency>
 		  <groupId>com.google.gwt</groupId> 
 		  <artifactId>gwt-user</artifactId> 
-		  <version>2.5.1</version> 
+		  <version>${gwtVersion}</version> 
 	  </dependency>
 	 <dependency>
 		  <groupId>com.google.gwt</groupId> 
+		  <artifactId>gwt-servlet</artifactId> 
+		  <version>${gwtVersion}</version> 
+	  </dependency>	  
+	 <dependency>
+		  <groupId>com.google.gwt</groupId> 
 		  <artifactId>gwt-dev</artifactId> 
-		  <version>2.5.1</version> 
+		  <version>${gwtVersion}</version> 
+		  <scope>test</scope>
 	  </dependency>    	      
 	 <dependency>
 		  <groupId>junit</groupId> 
@@ -107,4 +115,43 @@
 		  <scope>test</scope> 
 	  </dependency>
  </dependencies>
+
+ 
+ <build>
+   	 <outputDirectory>war/WEB-INF/classes</outputDirectory>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>gwt-maven-plugin</artifactId>
+        <version>2.5.1</version>
+        <dependencies>
+          <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-user</artifactId>
+            <version>${gwtVersion}</version>
+          </dependency>
+          <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-dev</artifactId>
+            <version>${gwtVersion}</version>
+          </dependency>
+        </dependencies>        
+        <executions>
+          <execution>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+        </executions>        
+        <configuration>
+            <runTarget>Phonebook.html</runTarget>
+	        <module>ua.com.kuchyn.tmm.phonebook.web.gwt.Phonebook</module>
+	        <appEngineVersion>1.7.1</appEngineVersion>
+	        <appEngineHome>1.7.1</appEngineHome>
+            <hostedWebapp>${outputDirectory}</hostedWebapp>
+        </configuration>        
+      </plugin>
+    </plugins>
+ </build>
 </project>
