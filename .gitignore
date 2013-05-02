@@ -1,5 +1,7 @@
 target/
 db/
+.gwt/
+gwt*/
 .settings/
 .classpath
 .project

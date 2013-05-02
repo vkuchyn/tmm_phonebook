@@ -1,0 +1,2 @@
+serviceClass: ua.com.kuchyn.tmm.phonebook.web.gwt.client.PhonebookService
+path: 2884556D081EFDC36C609CF9255AF1B8.gwt.rpc
