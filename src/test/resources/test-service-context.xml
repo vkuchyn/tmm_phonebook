@@ -11,4 +11,6 @@
         	<constructor-arg value="ua.com.kuchyn.tmm.phonebook.service.IdGeneratorService"/>
         </bean>
         
+        <context:property-placeholder location="classpath:test-persistence.properties"/>
+        
 </beans>

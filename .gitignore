@@ -2,6 +2,10 @@ target/
 db/
 .gwt/
 gwt*/
+war/WEB-INF/classes/
+war/WEB-INF/deploy/
+war/WEB-INF/lib/
+war/phonebook/
 .settings/
 .classpath
 .project

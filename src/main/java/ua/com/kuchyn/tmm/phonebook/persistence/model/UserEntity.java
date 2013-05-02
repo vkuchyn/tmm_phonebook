@@ -1,12 +1,19 @@
 package ua.com.kuchyn.tmm.phonebook.persistence.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "user")
-public class UserEntity implements IUser {
+public class UserEntity implements IUser, Serializable {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
 
     @Id
     private String id;
